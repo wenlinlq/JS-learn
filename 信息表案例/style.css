@@ -1,0 +1,38 @@
+body {
+    text-align: center;
+}
+
+table {
+    width: 600px;
+    font-size: 20px;
+    margin: 0 auto;
+}
+
+input,
+select {
+    list-style: none;
+    margin-right: 20px;
+    width: 100px;
+    height: 30px;
+    border: 1px solid skyblue;
+    border-radius: 5px;
+}
+
+button {
+    height: 30px;
+    background-color: #85caf9;
+    border: 1px solid skyblue;
+}
+
+table {
+    margin: 0 auto;
+    width: 800px;
+    border-collapse: collapse;
+    color: #004085;
+}
+
+table tr th {
+    background-color: rgb(165, 230, 255);
+    border: 1px solid #7b7b7b;
+
+}
