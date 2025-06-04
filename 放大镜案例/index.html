@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #f3f2f2;
+        }
+
+        .box {
+
+            position: relative;
+            width: 600px;
+            height: 500px;
+            /* background-color: pink; */
+            margin: 100px auto;
+        }
+
+        .box1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 500px;
+            height: 500px;
+            background-color: skyblue;
+        }
+
+        .box2 {
+            display: flex;
+            position: absolute;
+            top: 0;
+            right: 0;
+            /* justify-items: flex-end; */
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: end;
+            width: 100px;
+            height: 500px;
+            /* background-color: #cecece; */
+        }
+
+        .box2 div {
+
+            background-color: yellow;
+
+            width: 90px;
+            height: 90px;
+        }
+
+        .box3 {
+            overflow: hidden;
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            left: 505px;
+            display: none;
+
+        }
+
+        .box3 img {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1000px;
+            height: 1000px;
+
+
+        }
+
+        .box4 {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            /* display: none; */
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, .4);
+            /* z-index: 1; */
+            cursor: move;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+
+
+        .active {
+            border: 2px solid skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="box1">
+            <img src="./images/1.jpg" alt="">
+            <div class="box4"></div>
+        </div>
+        <div class="box2">
+            <div class="img active" data-id="1"><img src="./images/1.jpg" alt=""></div>
+            <div class="img" data-id="1"><img src="./images/2.jpg" alt=""></div>
+            <div class="img" data-id="1"><img src="./images/3.jpg" alt=""></div>
+            <div class="img" data-id="1"><img src="./images/4.jpg" alt=""></div>
+            <div class="img" data-id="1"><img src="./images/5.jpg" alt=""></div>
+        </div>
+        <div class="box3">
+            <img src="./images/1.jpg" alt="">
+        </div>
+
+    </div>
+    <script>
+        const box2 = document.querySelector('.box2')
+        const box = document.querySelector('.box1 ')
+        const box3 = document.querySelector('.box3')
+        const box4 = document.querySelector('.box4')
+        // const arr=document.querySelectorAll('.box2 .img')
+        box2.addEventListener('mouseover', function (e) {
+            if (e.target.tagName === 'IMG') {
+                document.querySelector('.box2 .active').classList.remove('active')
+                e.target.parentNode.classList.add('active')
+                box.querySelector('img').src = e.target.src
+
+            }
+        })
+        let n = 0
+
+        box.addEventListener('mouseover', show)
+        box.addEventListener('mouseleave', hide)
+        box3.querySelector('img').addEventListener('mouseover', show)
+        box3.querySelector('img').addEventListener('mouseleave', hide)
+        function show() {
+            clearTimeout(n)
+            box3.style.display = 'block'
+            box3.querySelector('img').src = box.querySelector('img').src
+        }
+        function hide() {
+            n = setTimeout(function () {
+                box3.style.display = 'none'
+            }, 200)
+
+
+        }
+        box.addEventListener('mouseenter', function (e) {
+
+            box4.style.display = 'block'
+        })
+        box.addEventListener('mouseleave', function (e) {
+
+            box4.style.display = 'none'
+        })
+        box.addEventListener('mousemove', function (e) {
+            let x = e.pageX - box.getBoundingClientRect().left
+            let y = e.pageY - box.getBoundingClientRect().top - document.documentElement.scrollTop
+            if (x >= 0 && x <= 500 && y >= 0 && y <= 500) {
+                let mx = 0, my = 0
+                //x轴
+                if (x < 125) { mx = 0 }
+                if (x >= 125 && x <= 375) {
+                    mx = x - 125
+                }
+                if (x > 375) mx = 250
+                //y轴
+                if (y < 125) { my = 0 }
+                if (y >= 125 && y <= 375) {
+                    my = y - 125
+                }
+                if (y > 375) my = 250
+                box4.style.left = mx + 'px'
+                box4.style.top = my + 'px'
+                box3.querySelector('img').style.left = -2 * mx + 'px'
+                box3.querySelector('img').style.top = -2 * my + 'px'
+            }
+
+
+
+
+        })
+    </script>
+</body>
+
+</html>
